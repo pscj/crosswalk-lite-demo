@@ -1,2 +1,0 @@
-# crosswalk-lite-demo
-sfdsdfs
