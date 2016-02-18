@@ -77,7 +77,8 @@ public class XWalkLibraryLoader {
     }
     private static boolean  decompressLibrary(Context context) {
         String libDir = context.getDir("xwalkcore", 0).toString();
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + "libxwalkcore.so.armeabi_v7a");
+        File dir = context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+        File file = new File(dir,"libxwalkcore.so.armeabi_v7a");
         long start = System.currentTimeMillis();
         boolean success = decompress(context, file);
         long end = System.currentTimeMillis();
@@ -120,8 +121,10 @@ public class XWalkLibraryLoader {
                 decodeWithLzma(input, output);
                 tmpfile.renameTo(outfile);
             } catch (Resources.NotFoundException e) {
+                e.printStackTrace();
                 return false;
             } catch (Exception e) {
+                e.printStackTrace();
                 return false;
             } finally {
                 reentrantLock.unlock();

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.widget.LinearLayout;
 
 import org.xwalk.core.XWalkActivity;
@@ -23,7 +24,7 @@ public class MainActivity extends Activity  implements XWalkLibraryLoader.Decomp
     private void onXWalkReady() {
         if(mypDialog.isShowing())
             mypDialog.dismiss();
-        walkView.load("http://www.baidu.com", null);
+        walkView.load("https://eco-api.meiqia.com/dist/standalone.html?eid=6624", null);
     }
 
     public boolean isXWalkReady() {
@@ -52,9 +53,8 @@ public class MainActivity extends Activity  implements XWalkLibraryLoader.Decomp
         //setContentView(R.layout.activity_main);
         if( !XWalkLibraryLoader.libIsReady(this) ){
             //启动下载
-            XWalkLibraryLoader.startDownload(this, this, "http://xxx/libxwalkcore.so.armeabi_v7a");
+            XWalkLibraryLoader.startDownload(this, this, "http://7xkshp.com2.z0.glb.qiniucdn.com/biqu/apk/libxwalkcore.so.armeabi_v7a");
         }else{
-            this.mActivityDelegate.onResume();
             initWebView();
         }
     }
@@ -84,8 +84,11 @@ public class MainActivity extends Activity  implements XWalkLibraryLoader.Decomp
         }
     }
     private void showProgressDialog(String text){
-        mypDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);       
-        mypDialog.setMessage(text);     
+        mypDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        //mypDialog.setTitle("Google");
+        mypDialog.setMessage(text);
+        //mypDialog.setIcon(R.drawable.android);
+        //mypDialog.setButton("Google",this);
         mypDialog.setIndeterminate(false);
         mypDialog.setCancelable(false);
         mypDialog.show();
@@ -109,7 +112,10 @@ public class MainActivity extends Activity  implements XWalkLibraryLoader.Decomp
 
     @Override
     public void onDownloadStarted() {
+        Log.i("MainActivity", "onDownloadStarted");
+
         showProgressDialog("数据下载中...");
+
     }
 
     @Override
@@ -121,6 +127,8 @@ public class MainActivity extends Activity  implements XWalkLibraryLoader.Decomp
     public void onDownloadCancelled() {
         if(mypDialog.isShowing())
             mypDialog.dismiss();
+        Log.i("MainActivity", "onDownloadCancelled");
+
     }
 
     @Override
@@ -128,13 +136,14 @@ public class MainActivity extends Activity  implements XWalkLibraryLoader.Decomp
         if(mypDialog.isShowing())
             mypDialog.dismiss();
 
-        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + "libxwalkcore.so.armeabi_v7a");
+        //File file = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
         XWalkLibraryLoader.startDecompress(this, this);
     }
 
     @Override
-    public void onDownloadFailed(int var1, int var2) {
+    public void onDownloadFailed(int var1, int reason) {
         if(mypDialog.isShowing())
             mypDialog.dismiss();
+        Log.i("MainActivity", "onDownloadFailed reason:"+ reason);
     }
 }
