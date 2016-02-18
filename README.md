@@ -6,5 +6,5 @@ crosswalk有两种使用模式. Shared Mode和embedded Mode. 对于crosswalk-lit
 * embedded Mode:把核心so文件(9MB)放到raw文件夹中，打包到apk里。这样的结果就是apk变得很大，难于部署.
 
 # 拆中方案
-参考自[crosswalk之"瘦身"秘籍](http://blog.csdn.net/recall2012/article/details/47319653)  使用shared Mode方式，当然你用lite本来也没得选。不要把核心的so文件放到raw中打包，把这文件放到http服务上去，使用时候再下载。基本是结合两种模式的混合体了，这样打包的apk只有1MB，在需要使用crosswalk的时候再下载或者后台下载均可. 下载9MB的文件对于一个非游戏类的app还是挺大的，具体要看应用场景了。
-    
+参考自[crosswalk之"瘦身"秘籍](http://blog.csdn.net/recall2012/article/details/47319653)  使用shared Mode方式，当然你用lite本来也没得选。不要把核心的so文件放到raw中打包，把这文件放到http服务上去，使用时候再下载。基本是结合两种模式的混合体了，这样打包的apk只有1MB，在需要使用crosswalk的时候再下载或者后台下载均可. 下载9MB的文件对于一个非游戏类的app还是挺大的，具体要看应用场景了。  
+那个so的core文件是用lamz压缩的，我放到百度网盘去了(http://pan.baidu.com/s/1nu0abH3) ,把这个文件放到你的一个http服务器上就可以用我的demo试验了
